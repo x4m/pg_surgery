@@ -13,6 +13,7 @@
 #include "postgres.h"
 
 #include "access/heapam.h"
+#include "access/htup_details.h"
 #include "access/visibilitymap.h"
 #include "catalog/pg_am_d.h"
 #include "catalog/pg_proc_d.h"
@@ -184,8 +185,8 @@ heap_force_common(FunctionCallInfo fcinfo, HeapTupleForceOption heap_force_opt)
 			if (offnos[i] == 0 || offnos[i] > maxoffset)
 			{
 				ereport(NOTICE,
-						 errmsg("skipping tid (%u, %u) for relation \"%s\" because the item number is out of range for this block",
-								blkno, offnos[i], RelationGetRelationName(rel)));
+						 (errmsg("skipping tid (%u, %u) for relation \"%s\" because the item number is out of range for this block",
+								blkno, offnos[i], RelationGetRelationName(rel))));
 				continue;
 			}
 
@@ -359,10 +360,10 @@ sanity_check_tid_array(ArrayType *ta, int *ntids)
 static void
 sanity_check_relation(Relation rel)
 {
-	if (rel->rd_amhandler != HEAP_TABLE_AM_HANDLER_OID)
-		ereport(ERROR,
-				(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
-				 errmsg("only the relation using heap_tableam_handler is supported")));
+	//if (rel->rd_amhandler != HEAP_TABLE_AM_HANDLER_OID)
+	//	ereport(ERROR,
+	//			(errcode(ERRCODE_FEATURE_NOT_SUPPORTED),
+	//			 errmsg("only the relation using heap_tableam_handler is supported")));
 
 	if (rel->rd_rel->relkind != RELKIND_RELATION &&
 		rel->rd_rel->relkind != RELKIND_MATVIEW &&
