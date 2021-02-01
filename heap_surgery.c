@@ -15,8 +15,6 @@
 #include "access/heapam.h"
 #include "access/htup_details.h"
 #include "access/visibilitymap.h"
-#include "catalog/pg_am_d.h"
-#include "catalog/pg_proc_d.h"
 #include "miscadmin.h"
 #include "storage/bufmgr.h"
 #include "utils/acl.h"
@@ -376,7 +374,7 @@ sanity_check_relation(Relation rel)
 	/* Must be owner of the table or superuser. */
 	if (!pg_class_ownercheck(RelationGetRelid(rel), GetUserId()))
 		aclcheck_error(ACLCHECK_NOT_OWNER,
-					   get_relkind_objtype(rel->rd_rel->relkind),
+					   ACL_KIND_CLASS,
 					   RelationGetRelationName(rel));
 }
 

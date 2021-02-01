@@ -75,21 +75,26 @@ rollback;
 -- partitioned tables (the parent table) doesn't contain any tuple.
 create table ptab (a int) partition by list (a);
 select heap_force_kill('ptab'::regclass, ARRAY['(0, 1)']::tid[]);
-ERROR:  only the relation using heap_tableam_handler is supported
+ERROR:  "ptab" is not a table, materialized view, or TOAST table
 select heap_force_freeze('ptab'::regclass, ARRAY['(0, 1)']::tid[]);
-ERROR:  only the relation using heap_tableam_handler is supported
+ERROR:  "ptab" is not a table, materialized view, or TOAST table
 create index ptab_idx on ptab (a);
+ERROR:  cannot create index on partitioned table "ptab"
 -- indexes are not supported, should fail.
 select heap_force_kill('ptab_idx'::regclass, ARRAY['(0, 1)']::tid[]);
-ERROR:  only the relation using heap_tableam_handler is supported
+ERROR:  relation "ptab_idx" does not exist
+LINE 1: select heap_force_kill('ptab_idx'::regclass, ARRAY['(0, 1)']...
+                               ^
 select heap_force_freeze('ptab_idx'::regclass, ARRAY['(0, 1)']::tid[]);
-ERROR:  only the relation using heap_tableam_handler is supported
+ERROR:  relation "ptab_idx" does not exist
+LINE 1: select heap_force_freeze('ptab_idx'::regclass, ARRAY['(0, 1)...
+                                 ^
 create view vw as select 1;
 -- views are not supported as well. so, all these should fail.
 select heap_force_kill('vw'::regclass, ARRAY['(0, 1)']::tid[]);
-ERROR:  only the relation using heap_tableam_handler is supported
+ERROR:  "vw" is not a table, materialized view, or TOAST table
 select heap_force_freeze('vw'::regclass, ARRAY['(0, 1)']::tid[]);
-ERROR:  only the relation using heap_tableam_handler is supported
+ERROR:  "vw" is not a table, materialized view, or TOAST table
 create sequence seq;
 -- sequences are not supported as well. so, all these functions should fail.
 select heap_force_kill('seq'::regclass, ARRAY['(0, 1)']::tid[]);

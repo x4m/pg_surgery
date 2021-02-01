@@ -1,12 +1,12 @@
-Source: surgery-11
+Source: surgery-10
 Maintainer: Andrey Borodin (Yandex.Cloud) <x4mmm@yandex-team.ru> 
 Section: database
 Priority: optional
-Build-Depends: debhelper (>= 9), postgresql-server-dev-all (>=195~), postgresql-server-dev-11
+Build-Depends: debhelper (>= 9), postgresql-server-dev-all (>=195~), postgresql-server-dev-10
 Standards-Version: 4.3.0
 Homepage: https://github.yandex-team.ru/mdb/surgery
 
-Package: surgery-11
+Package: surgery-10
 Architecture: any
-Depends: postgresql-11, ${misc:Depends}, ${shlibs:Depends}
+Depends: postgresql-10, ${misc:Depends}, ${shlibs:Depends}
 Description: Finds last lsn flushed to disk.
