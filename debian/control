@@ -1,12 +1,12 @@
-Source: surgery-12
+Source: surgery-POSTGRES_VERSION
 Maintainer: Andrey Borodin (Yandex.Cloud) <x4mmm@yandex-team.ru> 
 Section: database
 Priority: optional
-Build-Depends: debhelper (>= 9), postgresql-server-dev-all (>=195~), postgresql-server-dev-12
+Build-Depends: debhelper (>= 9), postgresql-server-dev-POSTGRES_VERSION
 Standards-Version: 4.3.0
-Homepage: https://github.yandex-team.ru/mdb/surgery
+Homepage: https://github.yandex-team.ru/mdb/pg_surgery
 
-Package: surgery-12
+Package: surgery-POSTGRES_VERSION
 Architecture: any
-Depends: postgresql-12, ${misc:Depends}, ${shlibs:Depends}
+Depends: postgresql-POSTGRES_VERSION, ${misc:Depends}, ${shlibs:Depends}
 Description: Finds last lsn flushed to disk.
