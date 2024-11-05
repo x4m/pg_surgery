@@ -20,3 +20,8 @@ Package: postgresql-12-surgery
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, postgresql-12
 Description: Extension for PostgreSQL to do data surgery
+
+Package: postgresql-13-surgery
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, postgresql-13
+Description: Extension for PostgreSQL to do data surgery
